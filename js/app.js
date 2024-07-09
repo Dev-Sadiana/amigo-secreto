@@ -2,14 +2,26 @@ let nomes = [];
 
 function adicionar() {
     let nome = document.getElementById('nome-amigo').value;
+    let nomeMaiusculo = nome.toUpperCase();
     let lista = document.getElementById('lista-amigos');
+
+    //validando o nome do amigo
+    if (nome == '') {
+        alert('Informe o nome do amigo!');
+        return;
+    //validando nome já adicionado
+    } else if (nomes.includes(nomeMaiusculo)) {
+        alert('Nome já adicionado!');
+        document.getElementById('nome-amigo').value = ''; 
+        return;
+    }
     
     //adicionar o nome inserido na lista do array
     if (lista.textContent == '') {
-        nomes.push(`${nome}`);                                  
+        nomes.push(`${nomeMaiusculo}`);                                  
         document.getElementById('lista-amigos').textContent = nomes;                            //verifica se é o primeiro elemento - não necessita de vírgula
     } else {
-        nomes.push(` ${nome}`);
+        nomes.push(` ${nomeMaiusculo}`);
         document.getElementById('lista-amigos').textContent = nomes;                            //a partir do segundo elemento - adiciona ", " (vírgula e espaço)
     }
     document.getElementById('nome-amigo').value = '';                                           //limpa o campo de preenchimento do nome
@@ -20,6 +32,12 @@ function adicionar() {
 }
 
 function sortear() {
+    //validando número de participantes
+    if (nomes.length < 4) {
+        alert('Adicione pelo menos 4 amigos.');
+        return;
+    }
+    
     let sorteio = document.getElementById('lista-sorteio');
     embaralha(nomes);
 
